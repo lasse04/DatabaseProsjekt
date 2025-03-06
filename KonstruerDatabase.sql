@@ -55,7 +55,7 @@ CREATE TABLE BrukerFlytype(
 CREATE TABLE Flyrute(
     flyruteNr TEXT,
     ukedagsKode TEXT NOT NULL,
-    oppstartsDato DATE,
+    oppstartsDato DATE NOT NULL,
     sluttDato DATE,
     flyselskapKode TEXT NOT NULL,
     flytypeNavn TEXT NOT NULL,
@@ -132,7 +132,6 @@ CREATE TABLE StoppPåFlyvning(
     ankomstTid TIME,
     avgangTid TIME,
     PRIMARY KEY (flyruteNr, løpeNr, sekvensNr),
-    FOREIGN KEY (flyruteNr) REFERENCES Flyrute(flyruteNr) ON DELETE CASCADE,
     FOREIGN KEY (flyruteNr, løpeNr) REFERENCES Flyvning(flyruteNr, løpeNr) ON DELETE CASCADE,
     FOREIGN KEY (flyruteNr, sekvensNr) REFERENCES FlyruteStopp(flyruteNr, sekvensNr) ON DELETE CASCADE
 );
@@ -197,8 +196,8 @@ CREATE TABLE Billett(
     flyruteNr TEXT NOT NULL,
     reiseID INT NOT NULL,
     løpeNr INT NOT NULL,
-    flytypeNavn TEXT NOT NULL,
-    seteNr TEXT NOT NULL,
+    flytypeNavn TEXT,
+    seteNr TEXT,
     startStopp INT NOT NULL,
     sluttStopp INT NOT NULL,
     PRIMARY KEY (billettID),
