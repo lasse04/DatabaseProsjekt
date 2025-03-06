@@ -17,7 +17,7 @@ CREATE TABLE Flyrute(
     ukedagsKode VARCHAR(7) NOT NULL,
     oppstartsDato DATE,
     sluttDato DATE,
-    flyselskapKode CHAR(2) NOT NULL
+    flyselskapKode CHAR(2) NOT NULL,
     flytypeNavn VARCHAR(50) NOT NULL,
     PRIMARY KEY (flyruteNr),
     FOREIGN KEY (flyselskapKode) REFERENCES Flyselskap(flyselskapKode) ON DELETE CASCADE
@@ -58,7 +58,7 @@ CREATE TABLE Flytype(
     CHECK (sluttProduksjonsÅr BETWEEN 1900 AND 2100),
     
     flyprodusentNavn VARCHAR(50) NOT NULL,
-    PRIMARY KEY (flytypeNavn)
+    PRIMARY KEY (flytypeNavn),
     FOREIGN KEY (flyprodusentNavn) REFERENCES Flyprodusent(flyprodusentNavn) ON DELETE CASCADE
 )
 
@@ -137,17 +137,17 @@ CREATE TABLE StoppPåFlyvning(
 
 CREATE TABLE Sete(
     flytypeNavn VARCHAR(50),
-    seteNr VARCHAR(4)
+    seteNr VARCHAR(4),
     PRIMARY KEY (flytypeNavn, seteNr),
     FOREIGN KEY (flytypeNavn) REFERENCES Flytype(flytypeNavn) ON DELETE CASCADE
 )
 
 CREATE TABLE Fordelsprogram(
-    flyseskapKode CHAR(2),
+    flyselskapKode CHAR(2),
     navn VARCHAR(50) NOT NULL,
     beskrivelse VARCHAR(255),
-    PRIMARY KEY (flyseskapKode, navn),
-    FOREIGN KEY (flyseskapKode) REFERENCES Flyselskap(flyseskapKode) ON DELETE CASCADE
+    PRIMARY KEY (flyselskapKode, navn),
+    FOREIGN KEY (flyselskapKode) REFERENCES Flyselskap(flyselskapKode) ON DELETE CASCADE
 )
 
 CREATE TABLE HarFordelsprogram(
