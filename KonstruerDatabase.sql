@@ -7,7 +7,7 @@ CREATE TABLE Flyplass(
 
 CREATE TABLE Flyprodusent(
     flyprodusentNavn TEXT,
-    stiftelsesÅr INTEGEREGER,
+    stiftelsesÅr INTEGER NOT NULL,
     CHECK (stiftelsesÅr BETWEEN 1900 AND 2100),
     PRIMARY KEY (flyprodusentNavn)
 );
@@ -30,7 +30,7 @@ CREATE TABLE Flytype(
     startProduksjonsAar INTEGER NOT NULL
     CHECK (startProduksjonsAar BETWEEN 1900 AND 2100),
     sluttProduksjonsAar INTEGER
-    CHECK (sluttProduksjonsAar BETWEEN 1900 AND 2100),
+    CHECK (sluttProduksjonsAar IS NULL OR sluttProduksjonsAar BETWEEN 1900 AND 2100),
     flyprodusentNavn TEXT NOT NULL,
     PRIMARY KEY (flytypeNavn),
     FOREIGN KEY (flyprodusentNavn) REFERENCES Flyprodusent(flyprodusentNavn) ON DELETE CASCADE
@@ -49,7 +49,8 @@ CREATE TABLE Flyrute(
     flyruteNr TEXT,
     ukedagsKode TEXT NOT NULL,
     oppstartsDato DATE NOT NULL,
-    sluttDato DATE,
+    sluttDato DATE
+    CHECK (sluttDato IS NULL OR oppstartsDato < sluttDato),
     flyselskapKode TEXT NOT NULL,
     flytypeNavn TEXT NOT NULL,
     PRIMARY KEY (flyruteNr),
@@ -80,7 +81,8 @@ WHERE a.sekvensNr < b.sekvensNr;
 CREATE TABLE FlyrutePris(
     flyruteNr TEXT,
     startStopp INTEGER,
-    sluttStopp INTEGER,
+    sluttStopp INTEGER
+    CHECK (startStopp < sluttStopp),
     pris INTEGER NOT NULL,
     billettType TEXT NOT NULL,
     CHECK (billettType in ('budsjett', 'økonomi', 'premium')),
@@ -132,7 +134,8 @@ CREATE TABLE StoppPåFlyvning(
     løpeNr INTEGER,
     sekvensNr INTEGER,
     ankomstTid TIME,
-    avgangTid TIME,
+    avgangTid TIME
+    CHECK (ankomstTid IS NULL or avgangTid IS NULL OR ankomstTid < avgangTid), 
     PRIMARY KEY (flyruteNr, løpeNr, sekvensNr),
     FOREIGN KEY (flyruteNr, løpeNr) REFERENCES Flyvning(flyruteNr, løpeNr) ON DELETE CASCADE,
     FOREIGN KEY (flyruteNr, sekvensNr) REFERENCES FlyruteStopp(flyruteNr, sekvensNr) ON DELETE CASCADE
@@ -197,7 +200,8 @@ CREATE TABLE Billett(
     flytypeNavn TEXT,
     seteNr TEXT,
     startStopp INTEGER NOT NULL,
-    sluttStopp INTEGER NOT NULL,
+    sluttStopp INTEGER NOT NULL
+    CHECK (startStopp < sluttStopp),
     FOREIGN KEY (flyruteNr) REFERENCES Flyrute(flyruteNr) ON DELETE CASCADE,
     FOREIGN KEY (reiseID) REFERENCES Reise(reiseID) ON DELETE CASCADE,
     FOREIGN KEY (flyruteNr, løpeNr) REFERENCES Flyvning(flyruteNr, løpeNr) ON DELETE CASCADE,
