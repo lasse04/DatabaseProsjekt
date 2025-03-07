@@ -4,17 +4,10 @@ CREATE TABLE Flyplass(
     PRIMARY KEY (flyplassKode)
 );
 
-CREATE TABLE RuteMellomFlyplass(
-    fraFlyplass TEXT,
-    tilFlyplass TEXT,
-    PRIMARY KEY (fraFlyplass, tilFlyplass),
-    FOREIGN KEY (fraFlyplass) REFERENCES Flyplass(flyplassKode) ON DELETE CASCADE,
-    FOREIGN KEY (tilFlyplass) REFERENCES Flyplass(flyplassKode) ON DELETE CASCADE
-);
 
 CREATE TABLE Flyprodusent(
     flyprodusentNavn TEXT,
-    stiftelsesÅr INT,
+    stiftelsesÅr INTEGEREGER,
     CHECK (stiftelsesÅr BETWEEN 1900 AND 2100),
     PRIMARY KEY (flyprodusentNavn)
 );
@@ -34,9 +27,9 @@ CREATE TABLE Flyselskap(
 
 CREATE TABLE Flytype(
     flytypeNavn TEXT,
-    startProduksjonsAar INT NOT NULL
+    startProduksjonsAar INTEGER NOT NULL
     CHECK (startProduksjonsAar BETWEEN 1900 AND 2100),
-    sluttProduksjonsAar INT
+    sluttProduksjonsAar INTEGER
     CHECK (sluttProduksjonsAar BETWEEN 1900 AND 2100),
     flyprodusentNavn TEXT NOT NULL,
     PRIMARY KEY (flytypeNavn),
@@ -66,7 +59,7 @@ CREATE TABLE Flyrute(
 
 CREATE TABLE FlyruteStopp(
     flyruteNr TEXT,
-    sekvensNr INT,
+    sekvensNr INTEGER,
     planlagtAnkomst TIME NOT NULL,
     planlagtAvgang TIME NOT NULL,
     flyplassKode TEXT NOT NULL,
@@ -75,11 +68,18 @@ CREATE TABLE FlyruteStopp(
     FOREIGN KEY (flyplassKode) REFERENCES Flyplass(flyplassKode) ON DELETE CASCADE
 );
 
+CREATE VIEW RuteMellomFlyplass AS
+SELECT DISTINCT a.flyplassKode AS FraFlyplass, b.flyplassKode AS TilFlyplass
+FROM FlyruteStopp a
+JOIN FlyruteStopp b ON a.flyruteNr = b.flyruteNr
+WHERE a.sekvensNr < b.sekvensNr;
+
+
 CREATE TABLE FlyrutePris(
     flyruteNr TEXT,
-    startStopp INT,
-    sluttStopp INT,
-    pris INT NOT NULL,
+    startStopp INTEGER,
+    sluttStopp INTEGER,
+    pris INTEGER NOT NULL,
     billettType TEXT NOT NULL,
     CHECK (billettType in ('budsjett', 'økonomi', 'premium')),
     PRIMARY KEY (flyruteNr, startStopp, sluttStopp),
@@ -93,7 +93,7 @@ CREATE TABLE FlyrutePris(
 CREATE TABLE Fly(
     registreringsNr TEXT,
     navn TEXT NOT NULL,
-    førsteDriftsÅr INT NOT NULL
+    førsteDriftsÅr INTEGER NOT NULL
     CHECK (førsteDriftsÅr BETWEEN 1900 AND 2100),
     flyselskapKode TEXT NOT NULL,
     flytypeNavn TEXT NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE Fly(
 
 CREATE TABLE FlyprodusentSerieNr(
     flyprodusentNavn TEXT,
-    serieNr INT,
+    serieNr INTEGER,
     flyRegistreringsNr TEXT NOT NULL,
     PRIMARY KEY (flyprodusentNavn, serieNr),
     FOREIGN KEY (flyprodusentNavn) REFERENCES Flyprodusent(flyprodusentNavn) ON DELETE CASCADE,
@@ -115,7 +115,7 @@ CREATE TABLE FlyprodusentSerieNr(
 
 CREATE TABLE Flyvning(
     flyruteNr TEXT,
-    løpeNr INT,
+    løpeNr INTEGER,
     flyvningStatus TEXT NOT NULL
     CHECK (flyvningStatus in ('planned', 'active', 'completed', 'cancelled')),
     dato DATE NOT NULL,
@@ -127,8 +127,8 @@ CREATE TABLE Flyvning(
 
 CREATE TABLE StoppPåFlyvning(
     flyruteNr TEXT,
-    løpeNr INT,
-    sekvensNr INT,
+    løpeNr INTEGER,
+    sekvensNr INTEGER,
     ankomstTid TIME,
     avgangTid TIME,
     PRIMARY KEY (flyruteNr, løpeNr, sekvensNr),
@@ -153,54 +153,50 @@ CREATE TABLE Fordelsprogram(
 
 
 CREATE TABLE Kunde(
-    kundeNr INT,
+    kundeNr INTEGER PRIMARY KEY AUTOINCREMENT,
     navn TEXT NOT NULL,
     telefonNr TEXT NOT NULL,
     epost TEXT NOT NULL UNIQUE,
-    nasjonalitet TEXT NOT NULL,
-    PRIMARY KEY (kundeNr)
+    nasjonalitet TEXT NOT NULL
 );
 
 CREATE TABLE HarFordelsprogram(
     flyselskapKode TEXT,
     fordelsprogramNavn TEXT,
-    kundeNr INT,
+    kundeNr INTEGER,
     PRIMARY KEY (flyselskapKode, fordelsprogramNavn, kundeNr),
     FOREIGN KEY (flyselskapKode, fordelsprogramNavn) REFERENCES Fordelsprogram(flyselskapKode, fordelsprogramNavn) ON DELETE CASCADE,
     FOREIGN KEY (kundeNr) REFERENCES Kunde(kundeNr) ON DELETE CASCADE
 );
 
 CREATE TABLE Billettkjøp(
-    referanseNr INT,
-    kjøpsPris INT NOT NULL,
-    kundeNr INT NOT NULL,
-    PRIMARY KEY (referanseNr),
+    referanseNr INTEGER PRIMARY KEY AUTOINCREMENT,
+    kjøpsPris INTEGER NOT NULL,
+    kundeNr INTEGER NOT NULL,
     FOREIGN KEY (kundeNr) REFERENCES Kunde(kundeNr) ON DELETE CASCADE
 );
 
 CREATE TABLE Reise(
-    reiseID INT,
+    reiseID INTEGER PRIMARY KEY AUTOINCREMENT,
     reiseType TEXT NOT NULL
     CHECK (reiseType in ('utreise', 'hjemreise')),
     innsjekkingsTidspunkt TIME,
-    referanseNr INT NOT NULL,
-    PRIMARY KEY (reiseID),
+    referanseNr INTEGER NOT NULL,
     FOREIGN KEY (referanseNr) REFERENCES Billettkjøp(referanseNr) ON DELETE CASCADE
 );
 
 CREATE TABLE Billett(
-    billettID INT,
+    billettID INTEGER PRIMARY KEY AUTOINCREMENT,
     billettType TEXT NOT NULL
     CHECK (billettType in ('budsjett', 'økonomi', 'premium')),
-    pris INT NOT NULL,
+    pris INTEGER NOT NULL,
     flyruteNr TEXT NOT NULL,
-    reiseID INT NOT NULL,
-    løpeNr INT NOT NULL,
+    reiseID INTEGER NOT NULL,
+    løpeNr INTEGER NOT NULL,
     flytypeNavn TEXT,
     seteNr TEXT,
-    startStopp INT NOT NULL,
-    sluttStopp INT NOT NULL,
-    PRIMARY KEY (billettID),
+    startStopp INTEGER NOT NULL,
+    sluttStopp INTEGER NOT NULL,
     FOREIGN KEY (flyruteNr) REFERENCES Flyrute(flyruteNr) ON DELETE CASCADE,
     FOREIGN KEY (reiseID) REFERENCES Reise(reiseID) ON DELETE CASCADE,
     FOREIGN KEY (flyruteNr, løpeNr) REFERENCES Flyvning(flyruteNr, løpeNr) ON DELETE CASCADE,
@@ -210,10 +206,9 @@ CREATE TABLE Billett(
 );
 
 CREATE TABLE Bagasje(
-    registreringsNr INT,
+    registreringsNr INTEGER PRIMARY KEY AUTOINCREMENT,
     vekt REAL NOT NULL,
     innleveringsTidspunkt TIME NOT NULL,
-    billettID INT NOT NULL,
-    PRIMARY KEY (registreringsNr),
+    billettID INTEGER NOT NULL,
     FOREIGN KEY (billettID) REFERENCES Billett(billettID) ON DELETE CASCADE
 );
