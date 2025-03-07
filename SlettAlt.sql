@@ -18,5 +18,5 @@ DROP TABLE IF EXISTS Flytype;
 DROP TABLE IF EXISTS FlyprodusentNasjonaliteter;
 DROP TABLE IF EXISTS Flyprodusent;
 DROP TABLE IF EXISTS Flyselskap;
-DROP TABLE IF EXISTS RuteMellomFlyplass;
+DROP VIEW IF EXISTS RuteMellomFlyplass;
 DROP TABLE IF EXISTS Flyplass;
