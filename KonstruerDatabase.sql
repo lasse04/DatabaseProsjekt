@@ -173,7 +173,6 @@ CREATE TABLE HarFordelsprogram(
 
 CREATE TABLE Billettkjøp(
     referanseNr INTEGER PRIMARY KEY AUTOINCREMENT,
-    kjøpsPris INTEGER NOT NULL,
     kundeNr INTEGER NOT NULL,
     FOREIGN KEY (kundeNr) REFERENCES Kunde(kundeNr) ON DELETE CASCADE
 );
