@@ -118,7 +118,7 @@ CREATE TABLE FlyprodusentSerieNr(
 CREATE TABLE Flyvning(
     flyruteNr TEXT,
     løpeNr INTEGER,
-    flyvningStatus TEXT NOT NULL
+    flyvningStatus TEXT NOT NULL DEFAULT 'planned'
     CHECK (flyvningStatus in ('planned', 'active', 'completed', 'cancelled')),
     dato DATE NOT NULL,
     flyRegistreringsNr TEXT,
