@@ -68,6 +68,8 @@ CREATE TABLE FlyruteStopp(
     FOREIGN KEY (flyplassKode) REFERENCES Flyplass(flyplassKode) ON DELETE CASCADE
 );
 
+
+-- View for å finne ruter mellom flyplasser, i stedet for å ha egen tabell på det.
 CREATE VIEW RuteMellomFlyplass AS
 SELECT DISTINCT a.flyplassKode AS FraFlyplass, b.flyplassKode AS TilFlyplass
 FROM FlyruteStopp a
