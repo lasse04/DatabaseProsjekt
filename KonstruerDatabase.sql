@@ -30,11 +30,12 @@ CREATE TABLE Flytype(
     startProduksjonsAar INTEGER NOT NULL
     CHECK (startProduksjonsAar BETWEEN 1900 AND 2100),
     sluttProduksjonsAar INTEGER
-    CHECK (sluttProduksjonsAar IS NULL OR sluttProduksjonsAar BETWEEN 1900 AND 2100),
+    CHECK (sluttProduksjonsAar IS NULL OR (sluttProduksjonsAar BETWEEN 1900 AND 2100 AND startProduksjonsAar < sluttProduksjonsAar)),
     flyprodusentNavn TEXT NOT NULL,
     PRIMARY KEY (flytypeNavn),
     FOREIGN KEY (flyprodusentNavn) REFERENCES Flyprodusent(flyprodusentNavn) ON DELETE CASCADE
 );
+
 
 
 CREATE TABLE BrukerFlytype(
