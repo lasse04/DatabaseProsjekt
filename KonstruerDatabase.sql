@@ -97,7 +97,7 @@ CREATE TABLE FlyrutePris(
 
 CREATE TABLE Fly(
     registreringsNr TEXT,
-    navn TEXT NOT NULL,
+    navn TEXT,
     førsteDriftsÅr INTEGER NOT NULL
     CHECK (førsteDriftsÅr BETWEEN 1900 AND 2100),
     flyselskapKode TEXT NOT NULL,
