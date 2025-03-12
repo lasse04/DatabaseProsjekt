@@ -73,10 +73,12 @@ CREATE TABLE FlyruteStopp(
 
 -- View for å finne ruter mellom flyplasser, i stedet for å ha egen tabell på det.
 CREATE VIEW RuteMellomFlyplass AS
-SELECT DISTINCT a.flyplassKode AS FraFlyplass, b.flyplassKode AS TilFlyplass
+SELECT DISTINCT Flyrute.flyruteNr, a.flyplassKode AS FraFlyplass, b.flyplassKode AS TilFlyplass, a.planlagtAvgang AS Avgang, b.planlagtAnkomst AS Ankomst, Flyrute.ukedagsKode
 FROM FlyruteStopp a
 JOIN FlyruteStopp b ON a.flyruteNr = b.flyruteNr
-WHERE a.sekvensNr < b.sekvensNr;
+JOIN Flyrute ON Flyrute.flyruteNr = a.flyruteNr
+WHERE a.sekvensNr < b.sekvensNr
+ORDER BY Flyrute.flyruteNr, a.sekvensNr, b.sekvensNr;
 
 
 CREATE TABLE FlyrutePris(

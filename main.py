@@ -1,5 +1,6 @@
 from connection import get_cursor, close_connection
 from konfigurer_seter import konfigurer_seter
+from FinnFlyplassInfo import finn_flyplass_info, hent_RuteMellomFlyplass
 cur = get_cursor()
 
 
@@ -54,12 +55,11 @@ if __name__ == '__main__':
     delete_db()
     create_db()
     add_airports()
-    get_airports()
     brukertilfelle2()
     konfigurer_seter()
     legg_til_flyruter()
     legg_til_flyvninger()
-    get_fleet()
+
     
     
 
