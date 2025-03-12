@@ -49,7 +49,7 @@ CREATE TABLE BrukerFlytype(
 CREATE TABLE Flyrute(
     flyruteNr TEXT,
     ukedagsKode TEXT NOT NULL,
-    oppstartsDato DATE NOT NULL,
+    oppstartsDato DATE,
     sluttDato DATE
     CHECK (sluttDato IS NULL OR oppstartsDato < sluttDato),
     flyselskapKode TEXT NOT NULL,
@@ -62,8 +62,8 @@ CREATE TABLE Flyrute(
 CREATE TABLE FlyruteStopp(
     flyruteNr TEXT,
     sekvensNr INTEGER,
-    planlagtAnkomst TIME NOT NULL,
-    planlagtAvgang TIME NOT NULL,
+    planlagtAnkomst TIME,
+    planlagtAvgang TIME,
     flyplassKode TEXT NOT NULL,
     PRIMARY KEY (flyruteNr, sekvensNr),
     FOREIGN KEY (flyruteNr) REFERENCES Flyrute(flyruteNr) ON DELETE CASCADE,
