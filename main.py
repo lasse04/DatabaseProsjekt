@@ -33,6 +33,23 @@ def brukertilfelle2():
     with open('LeggTilBrukstilfelle 2.sql', 'r') as f:
         cur.executescript(f.read())
 
+def legg_til_flyruter():
+    with open('LeggTilFlyruter.sql', 'r') as f:
+        cur.executescript(f.read())
+
+def legg_til_flyvninger():
+    with open('LeggTilFlyvninger.sql', 'r') as f:
+        cur.executescript(f.read())
+
+def get_fleet():
+    print("Flyflåter:")
+    with open('FinnFlåte.sql', 'r') as f:
+        sql = f.read()
+        cur.execute(sql)
+        rows = cur.fetchall()
+        for row in rows:
+            print(row)
+
 if __name__ == '__main__':
     delete_db()
     create_db()
@@ -40,6 +57,9 @@ if __name__ == '__main__':
     get_airports()
     brukertilfelle2()
     konfigurer_seter()
+    legg_til_flyruter()
+    legg_til_flyvninger()
+    get_fleet()
     
     
 

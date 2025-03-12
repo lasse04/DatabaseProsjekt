@@ -87,7 +87,7 @@ CREATE TABLE FlyrutePris(
     pris INTEGER NOT NULL,
     billettType TEXT NOT NULL,
     CHECK (billettType in ('budsjett', 'økonomi', 'premium')),
-    PRIMARY KEY (flyruteNr, startStopp, sluttStopp),
+    PRIMARY KEY (flyruteNr, startStopp, sluttStopp, billettType),
     FOREIGN KEY (flyruteNr) REFERENCES Flyrute(flyruteNr) ON DELETE CASCADE,
     FOREIGN KEY (flyruteNr, startStopp) REFERENCES FlyruteStopp(flyruteNr, sekvensNr) ON DELETE CASCADE,
     FOREIGN KEY (flyruteNr, sluttStopp) REFERENCES FlyruteStopp(flyruteNr, sekvensNr) ON DELETE CASCADE
