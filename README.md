@@ -27,7 +27,7 @@ For å se resultat kan man kjøre [finn_flåte.py](/finn_flåte.py)
 
 Den er løst i [FinnFlyplassInfo.py](/FinnFlyplassInfo.py).
 
-Kjør filen for å teste det.
+Kjør [FinnFlyplassInfo.py](/FinnFlyplassInfo.py) for å se eksempelet vårt, eller kjør [TestFinnFlyplassInfo.py](/TestFinnFlyplassInfo.py) for å teste med egne verdier.
 
 ## Brukstilfelle 7:
 

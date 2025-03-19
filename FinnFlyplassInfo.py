@@ -19,39 +19,13 @@ def hent_RuteMellomFlyplass():
 Funksjon som lar bruker velge en flyplass, ukedag og avgang/ankomst.
 Viser deretter alle flyruter som passer til valgene, formatert på en fin måte.
 """
-def finn_flyplass_info():
-    gyldige_flyplasser = hent_flyplasser()
-    print(gyldige_flyplasser)
-    print("-------")
-    print(f'Velg en flyplass ({", ".join(gyldige_flyplasser)}): ')
-    flyplassKode = input("Flyplasskode: ")
-
-    while flyplassKode not in gyldige_flyplasser:
-        print("Flyplasskoden finnes ikke.")
-        flyplassKode = input("Flyplasskode: ")
-
-    print("-------")
-    print(f'Velg en ukedag (1-7): ')
-    ukedag = input("Ukedag: ")
-
-    while not ukedag.isdigit() or int(ukedag) < 1 or int(ukedag) > 7:
-        print("Ukedagen er ugyldig.")
-        ukedag = input("Ukedag: ")
-
-
-    print("-------")
-    print("Velg avgang eller ankomst: ")
-    inn_ut = input("Avgang/ankomst: ").lower()
-
-    while inn_ut not in ['avgang', 'ankomst']:
-        print("Ugyldig input.")
-        inn_ut = input("Avgang/ankomst: ").lower()
+def finn_flyplass_info(flyplassKode, ukedag, inn_ut):
 
     
     ruter: list = hent_RuteMellomFlyplass()
     
     if inn_ut == "avgang":
-        ruter = [rute[:-1] for rute in ruter if rute[1] == flyplassKode and ukedag in rute[-1]]
+        ruter = [rute[:-1] for rute in ruter if rute[1] == flyplassKode and str(ukedag) in rute[-1]]
         ruter = [rute[:-1] for rute in ruter]
         ruter = [rute[:1] + rute[2:] for rute in ruter]
         resultat = {}
@@ -92,6 +66,36 @@ def finn_flyplass_info():
 
 
 
+def hent_inndata():
+    gyldige_flyplasser = hent_flyplasser()
+    print(gyldige_flyplasser)
+    print("-------")
+    print(f'Velg en flyplass ({", ".join(gyldige_flyplasser)}): ')
+    flyplassKode = input("Flyplasskode: ")
+
+    while flyplassKode not in gyldige_flyplasser:
+        print("Flyplasskoden finnes ikke.")
+        flyplassKode = input("Flyplasskode: ")
+
+    print("-------")
+    print(f'Velg en ukedag (1-7): ')
+    ukedag = input("Ukedag: ")
+
+    while not ukedag.isdigit() or int(ukedag) < 1 or int(ukedag) > 7:
+        print("Ukedagen er ugyldig.")
+        ukedag = input("Ukedag: ")
+
+
+    print("-------")
+    print("Velg avgang eller ankomst: ")
+    inn_ut = input("Avgang/ankomst: ").lower()
+
+    while inn_ut not in ['avgang', 'ankomst']:
+        print("Ugyldig input.")
+        inn_ut = input("Avgang/ankomst: ").lower()
+    
+    return flyplassKode, ukedag, inn_ut
+
 if __name__ == '__main__':
-    finn_flyplass_info()
+    finn_flyplass_info('TRD', 1, 'avgang')
     close_connection()
