@@ -1,13 +1,13 @@
--- flyruteNr, ukedagsKode, oppstartsDato, sluttDato, flyselskapKode, flytypeNavn
--- flyruteNr sekvensNr planlagtAnkomst planlagtAvgang flyplassKode
--- flyruteNr startStopp, sluttStopp, pris, billettType
 
 -- LEGG TIL RUTE WF1311
+-- flyruteNr, ukedagsKode, oppstartsDato, sluttDato, flyselskapKode, flytypeNavn
 INSERT INTO Flyrute VALUES ('WF1311', '12345', NULL, NULL, 'WF', 'Dash-8 100');
 
+-- flyruteNr sekvensNr planlagtAnkomst planlagtAvgang flyplassKode
 INSERT INTO FlyruteStopp VALUES ('WF1311', 1, NULL, '15:15:00', 'TRD');
 INSERT INTO FlyruteStopp VALUES ('WF1311', 2, '16:20:00', NULL, 'BOO');
 
+-- flyruteNr startStopp, sluttStopp, pris, billettType
 INSERT INTO FlyrutePris VALUES ('WF1311', 1, 2, 599, 'budsjett');
 INSERT INTO FlyrutePris VALUES ('WF1311', 1, 2, 899, 'økonomi');
 INSERT INTO FlyrutePris VALUES ('WF1311', 1, 2, 2018, 'premium');

@@ -1,0 +1,40 @@
+# Databaseprosjekt
+
+For å kjøre programmet må man først kjøre [main.py](/main.py) filen - den initialiserer databasen og setter inn dataen fra de ulike brukstilfellene.
+
+## Brukstilfelle 1:
+
+Den er løst i [LeggTilFlyplasser.sql](/LeggTilFlyplasser.sql)
+
+## Brukstilfelle 2:
+
+Den er løst i [LeggTilBrukstilfelle2.sql](/LeggTilBrukstilfelle%202.sql)
+
+## Brukstilfelle 3:
+
+Den er løst i [LeggTilFlyruter.sql](/LeggTilFlyruter.sql)
+
+## Brukstilfelle 4:
+
+Den er løst i [LeggTilFlyvninger.sql](/LeggTilFlyvninger.sql)
+
+## Brukstilfelle 5:
+
+Den er løst i FinnFlåte.sql
+For å se resultat kan man kjøre [finn_flåte.py](/finn_flåte.py)
+
+## Brukstilfelle 6:
+
+Den er løst i [FinnFlyplassInfo.py](/FinnFlyplassInfo.py).
+
+Kjør filen for å teste det.
+
+## Brukstilfelle 7:
+
+Den er løst i LeggTilBestillinger.sql
+
+## Brukstilfelle 8:
+
+Den er løst i [ledige_seter_på_flyvning.py](/ledige_seter_på_flyvning.py).
+
+Kjør filen for å teste det.

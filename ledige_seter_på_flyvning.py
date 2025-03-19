@@ -1,5 +1,17 @@
-from connection import get_cursor
+from connection import get_cursor, close_connection
 from formater_seter import formater_seter
+
+
+"""
+Funksjon som finner ledige seter for enhver delflyvning på en gitt flyvning.
+Flyvningen gives av flyruteNr og dato.
+
+Med delflyvning menes en flyvning mellom to påfølgende stopp på en flyrute,
+ikke enhver mulig 'tur' mellom to stopp på flyruten.
+
+Returnerer en dictionary med stoppnummer som nøkkel og en liste med ledige seter som verdi.
+
+"""
 def finn_ledige_seter(flyruteNr: str, dato: str):
     cursor = get_cursor()
     
@@ -40,7 +52,18 @@ def finn_ledige_seter(flyruteNr: str, dato: str):
     return ledige_seter
 
 
+
+"""
+Funksjon som finner ledige seter for en tur mellom to stopp på en flyrute.
+Her kan man velge vilkårlige stopp på flyruten, og det returneres en liste med alle seter
+som er ledige på hele den strekningen.
+
+Antar at brukeren gir gyldige input.
+"""
 def finn_ledige_seter_tur(flyruteNr, dato, startStopp, sluttStopp):
+    if startStopp >= sluttStopp:
+        return []
+    
     ledige_seter = finn_ledige_seter(flyruteNr, dato)
 
     ledige_seter_tur = ledige_seter[startStopp]
@@ -54,3 +77,6 @@ if __name__ == "__main__":
     ledige_seter = finn_ledige_seter_tur("WF1302", '2025-04-01', 1, 2)
     for seter in ledige_seter:
         print(f"{seter}")
+
+    close_connection()
+    

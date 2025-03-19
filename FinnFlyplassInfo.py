@@ -1,17 +1,24 @@
-from connection import get_cursor
+from connection import get_cursor, close_connection
 
+# Hjelpefunksjon som henter flyplasskoder fra databasen
 def hent_flyplasser():
     cur = get_cursor()
     cur.execute("SELECT flyplassKode FROM Flyplass")
     rows = cur.fetchall()
     return [row[0] for row in rows]
 
+# Hjelpefunksjon som henter ruter mellom flyplasser fra databasen, fra viewet RuteMellomFlyplass
 def hent_RuteMellomFlyplass():
     cur = get_cursor()
     cur.execute("SELECT * FROM RuteMellomFlyplass")
     rows = cur.fetchall()
     return rows
 
+
+"""
+Funksjon som lar bruker velge en flyplass, ukedag og avgang/ankomst.
+Viser deretter alle flyruter som passer til valgene, formatert på en fin måte.
+"""
 def finn_flyplass_info():
     gyldige_flyplasser = hent_flyplasser()
     print(gyldige_flyplasser)
@@ -87,3 +94,4 @@ def finn_flyplass_info():
 
 if __name__ == '__main__':
     finn_flyplass_info()
+    close_connection()

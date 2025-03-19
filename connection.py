@@ -1,3 +1,7 @@
+
+"""
+Hjelpefil for å håndtere tilkobling til databasen.
+"""
 import sqlite3
 con = sqlite3.connect('DatabaseProsjekt.db')
 

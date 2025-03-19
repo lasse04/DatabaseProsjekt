@@ -4,6 +4,15 @@ from FinnFlyplassInfo import finn_flyplass_info, hent_RuteMellomFlyplass
 cur = get_cursor()
 
 
+"""
+Hovedprogrammet i prosjektet.
+Initialiserer og legger inn all data i databasen.
+
+Denne må kjøres før man kan kjøre de andre filene i prosjektet.
+
+Inneholder mange hjelpefunksjoner som kjører SQL-spørringer fra filer.
+"""
+
 def create_db():
     with open('KonstruerDatabase.sql', 'r') as f:
         cur.executescript(f.read())
@@ -17,18 +26,6 @@ def delete_db():
 def add_airports():
     with open('LeggTilFlyplasser.sql', 'r') as f:
         cur.executescript(f.read())
-
-def get_airports():
-    cur.execute("SELECT * FROM Flyplass")
-    rows = cur.fetchall()
-    for row in rows:
-        print(row)
-
-def print_setekonfigurasjon(flytype):
-    cur.execute("SELECT * FROM Sete WHERE flytypeNavn = ?", (flytype,))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row)
 
 def brukertilfelle2():
     with open('LeggTilBrukstilfelle 2.sql', 'r') as f:
@@ -47,7 +44,9 @@ def legg_til_bestillinger():
         cur.executescript(f.read())
 
 
-
+"""
+Inngangsfunksjonen til programmet.
+"""
 if __name__ == '__main__':
     delete_db()
     create_db()
