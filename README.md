@@ -33,7 +33,7 @@ Kjør [FinnFlyplassInfo.py](/FinnFlyplassInfo.py) for å se eksempelet vårt, el
 
 ## Brukstilfelle 7:
 
-Den er løst i LeggTilBestillinger.sql
+Den er løst i [LeggTilBestillinger.sql](/LeggTilBestillinger.sql)
 
 ## Brukstilfelle 8:
 
