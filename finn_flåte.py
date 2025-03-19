@@ -15,6 +15,7 @@ def finn_flåte():
         for row in rows:
             print(row)
 
+
 if __name__ == '__main__':
     finn_flåte()
     close_connection()
