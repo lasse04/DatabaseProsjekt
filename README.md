@@ -44,4 +44,6 @@ Kjør filen for å teste det.
 Eksempeldataen oppgitt i brukstilfellene tester ikke funksjonalitet for hver "delflyvning",
 da det kun er kjøpt billetter for WF1302, som ikke har mellomlandinger.
 
-Vi har derfor laget
+Vi har derfor laget ekstra billetter som tilhører SK888, som kan brukes til å teste at den fungerer med mellomlandinger.
+
+Dette, og generell testing, kan gjøres i [test_ledige_seter_på_flyvning.py](/test_ledige_seter_på_flyvning.py)

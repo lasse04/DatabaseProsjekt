@@ -57,9 +57,5 @@ if __name__ == '__main__':
     legg_til_flyvninger()
     legg_til_bestillinger()
 
-
-
-    
-
     # Lukker databasetilkoblingen
     close_connection()
