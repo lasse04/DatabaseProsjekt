@@ -42,14 +42,11 @@ def legg_til_flyvninger():
     with open('LeggTilFlyvninger.sql', 'r') as f:
         cur.executescript(f.read())
 
-def get_fleet():
-    print("Flyflåter:")
-    with open('FinnFlåte.sql', 'r') as f:
-        sql = f.read()
-        cur.execute(sql)
-        rows = cur.fetchall()
-        for row in rows:
-            print(row)
+def legg_til_bestillinger():
+    with open('LeggTilBestillinger.sql', 'r') as f:
+        cur.executescript(f.read())
+
+
 
 if __name__ == '__main__':
     delete_db()
@@ -59,8 +56,10 @@ if __name__ == '__main__':
     konfigurer_seter()
     legg_til_flyruter()
     legg_til_flyvninger()
+    legg_til_bestillinger()
 
-    
+
+
     
 
     # Lukker databasetilkoblingen
