@@ -1,5 +1,7 @@
 # Databaseprosjekt
 
+Utviklingsnote: Dette prosjektet ble utviklet i fellesskap gjennom parprogrammering. En stor del av koden ble skrevet i felles økter, og derfor er commitene samlet på én konto.
+
 For å kjøre programmet må man først kjøre [main.py](/main.py) filen - den initialiserer databasen og setter inn dataen fra de ulike brukstilfellene.
 
 Prosjektet er laget med Python 3.10.11
